@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Example 1: Simple usage</h1>
+
+<button class="btn btn-primary" onclick="displayAlert()">Basic alert</button>
+<button class="btn btn-success" onclick="displayAlertSuccess()">Well done</button>
+<button class="btn btn-danger" onclick="displayAlertError()">Error</button>
+
+<h1>Example 2: Intercepting a form</h1>
+
+<form method="post" id="myForm" onsubmit="sendForm(event)">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" required name="Name" class="form-control" autocomplete="off" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
+
+@section Scripts{
+    <script>
+        function displayAlert(){
+            Swal.fire("Example with SweetAlert2");
+        }
+
+        function displayAlertSuccess(){
+            Swal.fire('Excellent', 'Good job!', 'success')
+        }
+
+        function displayAlertError() {
+            Swal.fire('Error', 'There has been an error', 'error')
+        }
+
+        function sendForm(e){
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                icon: 'question',
+                showCancelButton: true
+            }).then(result => {
+                if (result.isConfirmed){
+                    const myForm = document.getElementById('myForm');
+                    myForm.submit();
+                }
+            })
+        }
+    </script>
+}
